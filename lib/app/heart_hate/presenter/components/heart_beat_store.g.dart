@@ -88,17 +88,6 @@ mixin _$HeartBeatStore on _HeartBeatStore, Store {
   }
 
   @override
-  void initImage() {
-    final _$actionInfo = _$_HeartBeatStoreActionController.startAction(
-        name: '_HeartBeatStore.initImage');
-    try {
-      return super.initImage();
-    } finally {
-      _$_HeartBeatStoreActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
   void temporizator() {
     final _$actionInfo = _$_HeartBeatStoreActionController.startAction(
         name: '_HeartBeatStore.temporizator');

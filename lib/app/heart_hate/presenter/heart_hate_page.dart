@@ -1,11 +1,12 @@
 import 'package:cardio_dog/app/heart_hate/presenter/components/heart_beat_store.dart';
 import 'package:cardio_dog/app/heart_hate/presenter/components/heart_widget.dart';
+import 'package:cardio_dog/app/heart_hate/presenter/utils/custom_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:provider/provider.dart';
 
-class HeartHate extends StatelessWidget {
-  const HeartHate({super.key});
+class HeartHatePage extends StatelessWidget {
+  const HeartHatePage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -17,27 +18,46 @@ class HeartHate extends StatelessWidget {
       ),
       body: Center(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            const Text('Clique no coração para começar a contagem'),
+            Container(
+              padding: const EdgeInsets.all(10),
+              decoration: BoxDecoration(
+                color: CustomColors.customSwatchColor,
+                borderRadius: const BorderRadius.only(
+                    bottomLeft: Radius.circular(40),
+                    bottomRight: Radius.circular(40)),
+              ),
+              width: double.infinity,
+              height: 200,
+              alignment: Alignment.center,
+              child: const Text(
+                  'Toque no coração a cada respiração completa enquanto o temporarizador estiver contando'),
+            ),
+            const Padding(
+              padding:  EdgeInsets.only(top: 15),
+              child:  Text('Clique no coração para começar a contagem'),
+            ),
             Observer(
               builder: (context) => SizedBox(
-                child: Material(
-                  child: InkWell(
-                    onTap: () {
-                      if (store.secondsReverse == 30) {
-                        store.temporizator();
-                        store.initImage();
-                      }
-                      store.clickCounter();
-                    },
-                    child: Ink(
-                      height: 130,
-                      width: 135,
-                      decoration: const BoxDecoration(
-                        color: Colors.transparent,
+                child: ClipRRect(
+                  borderRadius: BorderRadiusDirectional.circular(40),
+                  child: Material(
+                    child: InkWell(
+                      onTap: () {
+                        if (store.secondsReverse == 30) {
+                          store.temporizator();
+                        }
+                        store.clickCounter();
+                      },
+                      child: Ink(
+                        height: 300,
+                        width: 300,
+                        decoration: const BoxDecoration(
+                          color: Colors.transparent,
+                        ),
+                        child: const HeartWidget(),
                       ),
-                      child: const HeartWidget(),
                     ),
                   ),
                 ),
@@ -49,10 +69,12 @@ class HeartHate extends StatelessWidget {
                   children: [
                     Text(
                       'Temporizador: ${store.secondsReverse}',
-                      style: const TextStyle(fontSize: 25),
+                      style: const TextStyle(
+                        fontSize: 25,
+                      ),
                     ),
                     Text(
-                      '${store.seconds} contagem',
+                      'Contador: ${store.seconds}',
                       style: const TextStyle(fontSize: 25),
                     ),
                   ],
