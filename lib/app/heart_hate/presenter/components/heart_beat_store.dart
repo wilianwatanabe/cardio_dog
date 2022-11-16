@@ -21,23 +21,35 @@ abstract class _HeartBeatStore with Store {
 
   @observable
   int secondsImage = 1;
-  
-  
+
+  Timer? cronometer;
 
   @action
   void clickCounter() {
-    if(isInit) seconds++;
+    if (isInit) seconds++;
   }
 
+  @action
+  void restart() {
+    cancel();
+    seconds = 0;
+    secondsReverse = 30;
+  }
+
+  void cancel() {
+    cronometer!.cancel();
+  }
 
   @action
   void temporizator() {
     isInit = true;
-    Timer.periodic(const Duration(seconds: 1), (timer) {
+    cronometer = Timer.periodic(const Duration(seconds: 1), (timer) {
       if (secondsReverse == 0) {
-        showDialog(context: navigatorKey.currentContext!, builder: (_){
-          return const HeartDialog();
-        });
+        showDialog(
+            context: navigatorKey.currentContext!,
+            builder: (_) {
+              return const HeartDialog();
+            });
         timer.cancel();
         isInit = false;
       } else {
@@ -45,5 +57,4 @@ abstract class _HeartBeatStore with Store {
       }
     });
   }
-  
 }

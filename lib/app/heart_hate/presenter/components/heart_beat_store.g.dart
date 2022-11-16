@@ -88,6 +88,17 @@ mixin _$HeartBeatStore on _HeartBeatStore, Store {
   }
 
   @override
+  void restart() {
+    final _$actionInfo = _$_HeartBeatStoreActionController.startAction(
+        name: '_HeartBeatStore.restart');
+    try {
+      return super.restart();
+    } finally {
+      _$_HeartBeatStoreActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   void temporizator() {
     final _$actionInfo = _$_HeartBeatStoreActionController.startAction(
         name: '_HeartBeatStore.temporizator');
