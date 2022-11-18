@@ -1,5 +1,5 @@
-import 'package:cardio_dog/app/heart_hate/presenter/components/heart_beat_store.dart';
-import 'package:cardio_dog/app/heart_hate/presenter/heart_hate_page.dart';
+import 'package:cardio_dog/app/heart_hate/presenter/heart_beat/pages/heart_hate_page.dart';
+import 'package:cardio_dog/app/heart_hate/presenter/heart_beat/stores/heart_beat_store.dart';
 import 'package:cardio_dog/app/heart_hate/presenter/utils/custom_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -29,7 +29,7 @@ class MyApp extends StatelessWidget {
           primarySwatch: CustomColors.customSwatchColor,
           fontFamily: 'Ubuntu',
         ),
-        home: const HeartHatePage(),
+        home:  const HeartBeatPage(),
       ),
     );
   }

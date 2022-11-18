@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:cardio_dog/app/heart_hate/presenter/components/heart_dialog.dart';
+import 'package:cardio_dog/app/heart_hate/presenter/heart_beat/widgets/heart_dialog.dart';
 import 'package:cardio_dog/main.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
@@ -20,13 +20,13 @@ abstract class _HeartBeatStore with Store {
   int secondsReverse = 30;
 
   @observable
-  int secondsImage = 1;
+  bool isLoading = false;
 
   Timer? cronometer;
 
   @action
   void clickCounter() {
-    if (isInit) seconds++;
+    if(isInit) seconds++;
   }
 
   @action
@@ -34,8 +34,10 @@ abstract class _HeartBeatStore with Store {
     cancel();
     seconds = 0;
     secondsReverse = 30;
+    isLoading = true;
   }
 
+  @action
   void cancel() {
     cronometer!.cancel();
   }

@@ -1,18 +1,22 @@
-import 'package:cardio_dog/app/heart_hate/presenter/components/heart_beat_store.dart';
-import 'package:cardio_dog/app/heart_hate/presenter/components/heart_widget.dart';
+import 'dart:async';
+
+import 'package:cardio_dog/app/heart_hate/presenter/heart_beat/stores/heart_beat_store.dart';
+import 'package:cardio_dog/app/heart_hate/presenter/heart_beat/widgets/heart_widget.dart';
+import 'package:cardio_dog/app/heart_hate/presenter/heart_beat/widgets/refresh_button.dart';
 import 'package:cardio_dog/app/heart_hate/presenter/utils/custom_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 
-class HeartHatePage extends StatefulWidget {
-  const HeartHatePage({super.key});
+class HeartBeatPage extends StatefulWidget {
+  const HeartBeatPage({super.key});
 
   @override
-  State<HeartHatePage> createState() => _HeartHatePageState();
+  State<HeartBeatPage> createState() => _HeartBeatPageState();
 }
 
-class _HeartHatePageState extends State<HeartHatePage> {
+class _HeartBeatPageState extends State<HeartBeatPage> {
   @override
   void dispose() {
     // TODO: implement dispose
@@ -59,7 +63,7 @@ class _HeartHatePageState extends State<HeartHatePage> {
             ),
             const Padding(
               padding: EdgeInsets.only(top: 15),
-              child: Text('Clique no coração para começar a contagem'),
+              child: Text('Toque no coração para começar a contagem'),
             ),
             Observer(
               builder: (context) => SizedBox(
@@ -71,7 +75,10 @@ class _HeartHatePageState extends State<HeartHatePage> {
                         if (store.secondsReverse == 30) {
                           store.temporizator();
                         }
-                        store.clickCounter();
+
+                        if (store.secondsReverse != 0) {
+                          store.clickCounter();
+                        }
                       },
                       child: Ink(
                         height: 300,
@@ -111,13 +118,17 @@ class _HeartHatePageState extends State<HeartHatePage> {
         builder: (_) {
           return FloatingActionButton(
             onPressed: () {
+              Timer.periodic(const Duration(milliseconds: 2020), (timer) {
+                store.isLoading = false;
+                timer.cancel();
+              });
+
               store.isInit = false;
+              
               store.restart();
             },
             elevation: 2.1,
-            child: const Icon(
-              Icons.restart_alt_outlined,
-            ),
+            child: const RefreshButton(),
           );
         },
       ),

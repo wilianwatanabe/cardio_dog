@@ -1,4 +1,4 @@
-import 'package:cardio_dog/app/heart_hate/presenter/components/heart_beat_store.dart';
+import 'package:cardio_dog/app/heart_hate/presenter/heart_beat/stores/heart_beat_store.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:provider/provider.dart';

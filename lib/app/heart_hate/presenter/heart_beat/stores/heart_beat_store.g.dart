@@ -57,19 +57,19 @@ mixin _$HeartBeatStore on _HeartBeatStore, Store {
     });
   }
 
-  late final _$secondsImageAtom =
-      Atom(name: '_HeartBeatStore.secondsImage', context: context);
+  late final _$isLoadingAtom =
+      Atom(name: '_HeartBeatStore.isLoading', context: context);
 
   @override
-  int get secondsImage {
-    _$secondsImageAtom.reportRead();
-    return super.secondsImage;
+  bool get isLoading {
+    _$isLoadingAtom.reportRead();
+    return super.isLoading;
   }
 
   @override
-  set secondsImage(int value) {
-    _$secondsImageAtom.reportWrite(value, super.secondsImage, () {
-      super.secondsImage = value;
+  set isLoading(bool value) {
+    _$isLoadingAtom.reportWrite(value, super.isLoading, () {
+      super.isLoading = value;
     });
   }
 
@@ -99,6 +99,17 @@ mixin _$HeartBeatStore on _HeartBeatStore, Store {
   }
 
   @override
+  void cancel() {
+    final _$actionInfo = _$_HeartBeatStoreActionController.startAction(
+        name: '_HeartBeatStore.cancel');
+    try {
+      return super.cancel();
+    } finally {
+      _$_HeartBeatStoreActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   void temporizator() {
     final _$actionInfo = _$_HeartBeatStoreActionController.startAction(
         name: '_HeartBeatStore.temporizator');
@@ -115,7 +126,7 @@ mixin _$HeartBeatStore on _HeartBeatStore, Store {
 isInit: ${isInit},
 seconds: ${seconds},
 secondsReverse: ${secondsReverse},
-secondsImage: ${secondsImage}
+isLoading: ${isLoading}
     ''';
   }
 }
